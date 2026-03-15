@@ -1,0 +1,118 @@
+"use client";
+
+import { useId, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
+export function LogoUploadField({
+  label,
+  hint,
+  buttonLabel,
+  replaceLabel,
+  removeLabel,
+  emptyLabel,
+  initialValue,
+}: {
+  label: string;
+  hint: string;
+  buttonLabel: string;
+  replaceLabel: string;
+  removeLabel: string;
+  emptyLabel: string;
+  initialValue?: string | null;
+}) {
+  const inputId = useId();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState(initialValue ?? "");
+  const [error, setError] = useState("");
+
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      setError(hint);
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      setError(hint);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const nextValue = typeof reader.result === "string" ? reader.result : "";
+      setPreview(nextValue);
+      setError("");
+    };
+    reader.onerror = () => {
+      setError(hint);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2">
+        <span className="text-sm text-white/70">{label}</span>
+        <div className="flex items-center gap-4 rounded-[28px] border border-white/10 bg-white/[0.045] p-4">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-white/10 bg-[#162030]">
+            {preview ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={preview} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <span className="px-3 text-center text-[11px] uppercase tracking-[0.22em] text-white/35">
+                {emptyLabel}
+              </span>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            <input type="hidden" name="logoDataUrl" value={preview} />
+            <input
+              ref={fileInputRef}
+              id={inputId}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-10 rounded-full border-white/12 bg-white/5 px-4 text-white hover:bg-white/10"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {preview ? replaceLabel : buttonLabel}
+              </Button>
+              {preview ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="h-10 rounded-full px-4 text-white/70 hover:bg-white/8 hover:text-white"
+                  onClick={() => {
+                    setPreview("");
+                    setError("");
+                    if (fileInputRef.current) {
+                      fileInputRef.current.value = "";
+                    }
+                  }}
+                >
+                  {removeLabel}
+                </Button>
+              ) : null}
+            </div>
+            <p className="text-xs leading-6 text-white/45">{error || hint}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

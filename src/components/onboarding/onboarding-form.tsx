@@ -3,6 +3,7 @@
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { LogoUploadField } from "@/components/brand/logo-upload-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Locale } from "@/i18n/config";
@@ -63,9 +64,14 @@ export function OnboardingForm({
           />
         </Field>
         <div className="grid gap-4 md:grid-cols-2">
-          <Field label={dictionary.logoUrlLabel}>
-            <Input name="logoUrl" placeholder="https://..." />
-          </Field>
+          <LogoUploadField
+            label={dictionary.logoUploadLabel}
+            hint={dictionary.logoUploadHint}
+            buttonLabel={dictionary.logoUploadButton}
+            replaceLabel={dictionary.logoReplaceButton}
+            removeLabel={dictionary.logoRemoveButton}
+            emptyLabel={dictionary.logoEmpty}
+          />
           <Field label={dictionary.brandLocaleLabel}>
             <select
               name="brandLocale"

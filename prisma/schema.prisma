@@ -91,6 +91,7 @@ model Brand {
   name                String
   slug                String       @unique
   logoUrl             String?
+  logoDataUrl         String?
   description         String?
   contactEmail        String
   supportEmail        String?
@@ -104,6 +105,7 @@ model Brand {
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
   members             BrandMember[]
+  events              Event[]
 }
 
 model BrandMember {
@@ -137,4 +139,29 @@ enum BrandRole {
   OWNER
   ADMIN
   MEMBER
+}
+
+model Event {
+  id          String      @id @default(cuid())
+  brandId     String
+  title       String
+  summary     String
+  startsAt    DateTime
+  endsAt      DateTime?
+  venue       String?
+  location    String?
+  capacity    Int?
+  isPublic    Boolean     @default(true)
+  status      EventStatus @default(DRAFT)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  brand       Brand       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@index([brandId, startsAt])
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CANCELED
 }

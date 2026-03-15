@@ -13,6 +13,32 @@ export type OnboardingState = {
   message: string;
 };
 
+function normalizeOptionalString(value: FormDataEntryValue | null, max = 255) {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  return trimmed ? trimmed.slice(0, max) : null;
+}
+
+function normalizeLogoDataUrl(
+  value: FormDataEntryValue | null,
+  errorMessage: string,
+) {
+  return z
+    .union([
+      z.literal(""),
+      z
+        .string()
+        .trim()
+        .regex(/^data:image\/(png|jpeg|jpg|webp|gif|svg\+xml);base64,[a-zA-Z0-9+/=]+$/, errorMessage)
+        .max(3_000_000, errorMessage),
+    ])
+    .transform((input) => input || null)
+    .safeParse(typeof value === "string" ? value : "");
+}
+
 export async function createBrandOnboarding(
   userId: string,
   _prevState: OnboardingState,
@@ -43,9 +69,6 @@ export async function createBrandOnboarding(
       .trim()
       .max(64)
       .transform((value) => value.replace(/^@/, "") || null),
-    logoUrl: z
-      .union([z.literal(""), z.url(dictionary.validation.logoUrl)])
-      .transform((value) => value || null),
     companyName: z
       .string()
       .trim()
@@ -68,7 +91,6 @@ export async function createBrandOnboarding(
     supportEmail: formData.get("supportEmail"),
     website: formData.get("website"),
     tiktokHandle: formData.get("tiktokHandle"),
-    logoUrl: formData.get("logoUrl"),
     companyName: formData.get("companyName"),
     phone: formData.get("phone"),
     country: formData.get("country"),
@@ -79,6 +101,18 @@ export async function createBrandOnboarding(
     return {
       success: false,
       message: parsed.error.issues[0]?.message ?? dictionary.validation.generic,
+    };
+  }
+
+  const logoDataUrl = normalizeLogoDataUrl(
+    formData.get("logoDataUrl"),
+    dictionary.validation.logoUpload,
+  );
+
+  if (!logoDataUrl.success) {
+    return {
+      success: false,
+      message: logoDataUrl.error.issues[0]?.message ?? dictionary.validation.logoUpload,
     };
   }
 
@@ -115,7 +149,7 @@ export async function createBrandOnboarding(
       supportEmail: parsed.data.supportEmail,
       website: parsed.data.website,
       tiktokHandle: parsed.data.tiktokHandle,
-      logoUrl: parsed.data.logoUrl,
+      logoDataUrl: logoDataUrl.data,
       companyName: parsed.data.companyName,
       phone: parsed.data.phone,
       country: parsed.data.country,
@@ -164,9 +198,6 @@ export async function updateBrandProfile(
       .trim()
       .max(64)
       .transform((value) => value.replace(/^@/, "") || null),
-    logoUrl: z
-      .union([z.literal(""), z.url(dictionary.validation.logoUrl)])
-      .transform((value) => value || null),
     companyName: z
       .string()
       .trim()
@@ -188,7 +219,6 @@ export async function updateBrandProfile(
     supportEmail: formData.get("supportEmail"),
     website: formData.get("website"),
     tiktokHandle: formData.get("tiktokHandle"),
-    logoUrl: formData.get("logoUrl"),
     companyName: formData.get("companyName"),
     phone: formData.get("phone"),
     country: formData.get("country"),
@@ -199,6 +229,18 @@ export async function updateBrandProfile(
     return {
       success: false,
       message: parsed.error.issues[0]?.message ?? dictionary.validation.generic,
+    };
+  }
+
+  const logoDataUrl = normalizeLogoDataUrl(
+    formData.get("logoDataUrl"),
+    dictionary.validation.logoUpload,
+  );
+
+  if (!logoDataUrl.success) {
+    return {
+      success: false,
+      message: logoDataUrl.error.issues[0]?.message ?? dictionary.validation.logoUpload,
     };
   }
 
@@ -226,7 +268,7 @@ export async function updateBrandProfile(
       supportEmail: parsed.data.supportEmail,
       website: parsed.data.website,
       tiktokHandle: parsed.data.tiktokHandle,
-      logoUrl: parsed.data.logoUrl,
+      logoDataUrl: logoDataUrl.data,
       companyName: parsed.data.companyName,
       phone: parsed.data.phone,
       country: parsed.data.country,
@@ -236,6 +278,124 @@ export async function updateBrandProfile(
 
   revalidatePath(getLocalePath(locale, "/dashboard"));
   revalidatePath(getLocalePath(locale, "/brand"));
+
+  return {
+    success: true,
+    message: dictionary.success,
+  };
+}
+
+export async function createBrandEvent(
+  userId: string,
+  brandId: string,
+  _prevState: OnboardingState,
+  formData: FormData,
+): Promise<OnboardingState> {
+  const localeValue = formData.get("locale");
+  const locale =
+    typeof localeValue === "string" && isLocale(localeValue) ? localeValue : defaultLocale;
+  const dictionary = getDictionary(locale).dashboard.events;
+
+  const schema = z
+    .object({
+      title: z.string().trim().min(3, dictionary.validation.title).max(120),
+      summary: z.string().trim().min(12, dictionary.validation.summary).max(500),
+      startsAt: z.string().trim().min(1, dictionary.validation.startsAt),
+      endsAt: z.string().trim().optional(),
+      venue: z.string().trim().max(120).optional(),
+      location: z.string().trim().max(120).optional(),
+      capacity: z.string().trim().optional(),
+      status: z.enum(["DRAFT", "PUBLISHED", "CANCELED"]),
+      visibility: z.enum(["public", "private"]),
+    })
+    .superRefine((data, ctx) => {
+      const startsAt = new Date(data.startsAt);
+      const endsAt = data.endsAt ? new Date(data.endsAt) : null;
+
+      if (Number.isNaN(startsAt.getTime())) {
+        ctx.addIssue({
+          code: "custom",
+          message: dictionary.validation.startsAt,
+          path: ["startsAt"],
+        });
+      }
+
+      if (data.endsAt && (!endsAt || Number.isNaN(endsAt.getTime()))) {
+        ctx.addIssue({
+          code: "custom",
+          message: dictionary.validation.endsAt,
+          path: ["endsAt"],
+        });
+      }
+
+      if (endsAt && startsAt > endsAt) {
+        ctx.addIssue({
+          code: "custom",
+          message: dictionary.validation.endsAfterStart,
+          path: ["endsAt"],
+        });
+      }
+    });
+
+  const parsed = schema.safeParse({
+    title: formData.get("title"),
+    summary: formData.get("summary"),
+    startsAt: formData.get("startsAt"),
+    endsAt: normalizeOptionalString(formData.get("endsAt")),
+    venue: normalizeOptionalString(formData.get("venue"), 120) ?? "",
+    location: normalizeOptionalString(formData.get("location"), 120) ?? "",
+    capacity: normalizeOptionalString(formData.get("capacity"), 12) ?? "",
+    status: formData.get("status"),
+    visibility: formData.get("visibility"),
+  });
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: parsed.error.issues[0]?.message ?? dictionary.validation.generic,
+    };
+  }
+
+  const membership = await prisma.brandMember.findFirst({
+    where: {
+      userId,
+      brandId,
+    },
+    select: { id: true },
+  });
+
+  if (!membership) {
+    return {
+      success: false,
+      message: dictionary.validation.unauthorized,
+    };
+  }
+
+  const capacityValue = parsed.data.capacity ? Number.parseInt(parsed.data.capacity, 10) : null;
+
+  if (parsed.data.capacity && (!capacityValue || capacityValue < 1)) {
+    return {
+      success: false,
+      message: dictionary.validation.capacity,
+    };
+  }
+
+  await prisma.event.create({
+    data: {
+      brandId,
+      title: parsed.data.title,
+      summary: parsed.data.summary,
+      startsAt: new Date(parsed.data.startsAt),
+      endsAt: parsed.data.endsAt ? new Date(parsed.data.endsAt) : null,
+      venue: parsed.data.venue || null,
+      location: parsed.data.location || null,
+      capacity: capacityValue,
+      status: parsed.data.status,
+      isPublic: parsed.data.visibility === "public",
+    },
+  });
+
+  revalidatePath(getLocalePath(locale, "/dashboard"));
 
   return {
     success: true,

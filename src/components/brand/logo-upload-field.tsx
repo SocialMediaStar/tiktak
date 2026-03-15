@@ -15,6 +15,8 @@ export function LogoUploadField({
   emptyLabel,
   initialValue,
   tone = "dark",
+  value,
+  onValueChange,
 }: {
   label: string;
   hint: string;
@@ -24,11 +26,23 @@ export function LogoUploadField({
   emptyLabel: string;
   initialValue?: string | null;
   tone?: "dark" | "light";
+  value?: string;
+  onValueChange?: (value: string) => void;
 }) {
   const inputId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(initialValue ?? "");
   const [error, setError] = useState("");
+  const currentPreview = value ?? preview;
+
+  function setNextValue(nextValue: string) {
+    if (onValueChange) {
+      onValueChange(nextValue);
+      return;
+    }
+
+    setPreview(nextValue);
+  }
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -50,7 +64,7 @@ export function LogoUploadField({
     const reader = new FileReader();
     reader.onload = () => {
       const nextValue = typeof reader.result === "string" ? reader.result : "";
-      setPreview(nextValue);
+      setNextValue(nextValue);
       setError("");
     };
     reader.onerror = () => {
@@ -81,9 +95,9 @@ export function LogoUploadField({
                 : "flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-white/10 bg-[#162030]"
             }
           >
-            {preview ? (
+            {currentPreview ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={preview} alt="" className="h-full w-full object-cover" />
+              <img src={currentPreview} alt="" className="h-full w-full object-cover" />
             ) : (
               <span
                 className={
@@ -98,7 +112,7 @@ export function LogoUploadField({
           </div>
 
           <div className="space-y-3">
-            <input type="hidden" name="logoDataUrl" value={preview} />
+            <input type="hidden" name="logoDataUrl" value={currentPreview} />
             <input
               ref={fileInputRef}
               id={inputId}
@@ -118,9 +132,9 @@ export function LogoUploadField({
                 }
                 onClick={() => fileInputRef.current?.click()}
               >
-                {preview ? replaceLabel : buttonLabel}
+                {currentPreview ? replaceLabel : buttonLabel}
               </Button>
-              {preview ? (
+              {currentPreview ? (
                 <Button
                   type="button"
                   variant="ghost"
@@ -130,7 +144,7 @@ export function LogoUploadField({
                       : "h-10 rounded-full px-4 text-white/70 hover:bg-white/8 hover:text-white"
                   }
                   onClick={() => {
-                    setPreview("");
+                    setNextValue("");
                     setError("");
                     if (fileInputRef.current) {
                       fileInputRef.current.value = "";

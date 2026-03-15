@@ -87,12 +87,9 @@
     "googleDisabled": "The Google button activates after adding `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.",
     "tiktokNote": "TikTok Login Kit uses the authorization code flow and localhost callbacks do not work in production. We should wire this in the next step.",
     "emailDivider": "Or continue with email",
-    "displayName": "Display name",
-    "displayNamePlaceholder": "Studio, creator or team name",
     "emailAddress": "Email address",
     "emailPlaceholder": "you@example.com",
     "emailNote": "Recommended setup: keep email passwordless. Auth.js Email Provider handles verification flow with materially less surface area than building password auth from scratch.",
-    "emailSuccess": "Check your inbox for the sign-in link.",
     "emailError": "The sign-in link could not be sent right now.",
     "emailMissingConfig": "Email sign-in activates after adding `NEXTAUTH_SECRET`, `RESEND_API_KEY` and `EMAIL_FROM`.",
     "emailPending": "Sending link..."

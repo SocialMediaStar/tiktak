@@ -127,7 +127,6 @@ export function AuthModal({
                   title={dictionary.signin.title}
                   description={dictionary.signin.description}
                   cta={dictionary.signin.cta}
-                  showName={false}
                   hasGoogleAuth={hasGoogleAuth}
                   hasEmailAuth={hasEmailAuth}
                 />
@@ -141,7 +140,6 @@ export function AuthModal({
                   title={dictionary.signup.title}
                   description={dictionary.signup.description}
                   cta={dictionary.signup.cta}
-                  showName
                   hasGoogleAuth={hasGoogleAuth}
                   hasEmailAuth={hasEmailAuth}
                 />
@@ -161,7 +159,6 @@ function AuthFormShell({
   title,
   description,
   cta,
-  showName,
   hasGoogleAuth,
   hasEmailAuth,
 }: {
@@ -171,7 +168,6 @@ function AuthFormShell({
   title: string;
   description: string;
   cta: string;
-  showName: boolean;
   hasGoogleAuth: boolean;
   hasEmailAuth: boolean;
 }) {
@@ -189,7 +185,6 @@ function AuthFormShell({
         callbackUrl={`/${locale}/dashboard`}
         dictionary={dictionary}
         cta={cta}
-        showName={showName}
         enabled={hasEmailAuth}
       />
     </div>

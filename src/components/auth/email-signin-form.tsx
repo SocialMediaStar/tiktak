@@ -11,7 +11,6 @@ type EmailSigninFormProps = {
   callbackUrl: string;
   dictionary: Dictionary["authModal"];
   cta: string;
-  showName?: boolean;
   compact?: boolean;
   enabled: boolean;
 };
@@ -20,12 +19,11 @@ export function EmailSignInForm({
   callbackUrl,
   dictionary,
   cta,
-  showName = false,
   compact = false,
   enabled,
 }: EmailSigninFormProps) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "error">("idle");
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -42,23 +40,12 @@ export function EmailSignInForm({
               email,
               callbackUrl,
             });
-            setStatus("success");
           } catch {
             setStatus("error");
           }
         });
       }}
     >
-      {showName ? (
-        <label className="block space-y-2">
-          <span className="text-sm text-white/72">{dictionary.displayName}</span>
-          <Input
-            type="text"
-            placeholder={dictionary.displayNamePlaceholder}
-            className="h-12 rounded-2xl border-white/12 bg-white/[0.045] px-4 text-white placeholder:text-white/30"
-          />
-        </label>
-      ) : null}
       <label className="block space-y-2">
         <span className="text-sm text-white/72">{dictionary.emailAddress}</span>
         <Input
@@ -74,13 +61,10 @@ export function EmailSignInForm({
         className="h-12 w-full rounded-2xl text-sm"
         disabled={isPending || !enabled || !email}
       >
-        {isPending ? dictionary.emailPending : cta}
+      {isPending ? dictionary.emailPending : cta}
       </Button>
       {!enabled ? (
         <p className="text-xs leading-6 text-amber-200">{dictionary.emailMissingConfig}</p>
-      ) : null}
-      {status === "success" ? (
-        <p className="text-xs leading-6 text-emerald-200">{dictionary.emailSuccess}</p>
       ) : null}
       {status === "error" ? (
         <p className="text-xs leading-6 text-amber-200">{dictionary.emailError}</p>

@@ -17,6 +17,7 @@ export function LogoUploadField({
   tone = "dark",
   value,
   onValueChange,
+  layout = "default",
 }: {
   label: string;
   hint: string;
@@ -28,12 +29,14 @@ export function LogoUploadField({
   tone?: "dark" | "light";
   value?: string;
   onValueChange?: (value: string) => void;
+  layout?: "default" | "compact";
 }) {
   const inputId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(initialValue ?? "");
   const [error, setError] = useState("");
   const currentPreview = value ?? preview;
+  const isCompact = layout === "compact";
 
   function setNextValue(nextValue: string) {
     if (onValueChange) {
@@ -84,7 +87,9 @@ export function LogoUploadField({
         <div
           className={
             isLight
-              ? "flex items-center gap-4 rounded-[28px] border border-slate-200 bg-slate-50 p-4"
+              ? isCompact
+                ? "flex flex-col items-start gap-4 rounded-[28px] border border-dashed border-slate-300 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5"
+                : "flex items-center gap-4 rounded-[28px] border border-slate-200 bg-slate-50 p-4"
               : "flex items-center gap-4 rounded-[28px] border border-white/10 bg-white/[0.045] p-4"
           }
         >
@@ -111,7 +116,7 @@ export function LogoUploadField({
             )}
           </div>
 
-          <div className="space-y-3">
+          <div className={isCompact ? "w-full space-y-3" : "space-y-3"}>
             <input type="hidden" name="logoDataUrl" value={currentPreview} />
             <input
               ref={fileInputRef}

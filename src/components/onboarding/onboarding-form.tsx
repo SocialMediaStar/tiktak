@@ -63,66 +63,91 @@ export function OnboardingForm({
       description: dictionary.stepBrandCopy,
       fields: (
         <>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Field label={dictionary.nameLabel}>
-              <Input
-                name="name"
-                value={formValues.name}
-                onChange={(event) => updateValue("name", event.target.value)}
-                placeholder={dictionary.namePlaceholder}
-                required
-                className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-              />
-            </Field>
-            <Field label={dictionary.slugLabel}>
-              <div className="space-y-2">
-                <Input
-                  name="slug"
-                  value={formValues.slug}
-                  onChange={(event) => updateValue("slug", event.target.value)}
-                  placeholder={dictionary.slugPlaceholder}
-                  required
-                  className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-                />
-                <p className="text-sm leading-6 text-slate-500">{dictionary.slugHint}</p>
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)]">
+            <div className="space-y-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label={dictionary.nameLabel}>
+                  <Input
+                    name="name"
+                    value={formValues.name}
+                    onChange={(event) => updateValue("name", event.target.value)}
+                    placeholder={dictionary.namePlaceholder}
+                    required
+                    className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+                <Field label={dictionary.slugLabel}>
+                  <div className="space-y-2">
+                    <div className="flex h-12 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                      <div className="hidden items-center border-r border-slate-200 bg-slate-50 px-4 text-sm font-medium text-slate-500 sm:flex">
+                        tiktak.ee/
+                      </div>
+                      <Input
+                        name="slug"
+                        value={formValues.slug}
+                        onChange={(event) => updateValue("slug", event.target.value)}
+                        placeholder={dictionary.slugPlaceholder}
+                        required
+                        className="h-full rounded-none border-0 bg-transparent px-4 text-slate-950 placeholder:text-slate-400 focus-visible:ring-0"
+                      />
+                    </div>
+                    <p className="text-sm leading-6 text-slate-500">{dictionary.slugHint}</p>
+                  </div>
+                </Field>
               </div>
-            </Field>
-          </div>
-          <Field label={dictionary.descriptionLabel}>
-            <textarea
-              name="description"
-              value={formValues.description}
-              onChange={(event) => updateValue("description", event.target.value)}
-              required
-              minLength={12}
-              maxLength={300}
-              placeholder={dictionary.descriptionPlaceholder}
-              className="min-h-32 w-full rounded-[24px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none placeholder:text-slate-400 focus:border-orange-300/70"
-            />
-          </Field>
-          <div className="grid gap-4 md:grid-cols-2">
-            <LogoUploadField
-              label={dictionary.logoUploadLabel}
-              hint={dictionary.logoUploadHint}
-              buttonLabel={dictionary.logoUploadButton}
-              replaceLabel={dictionary.logoReplaceButton}
-              removeLabel={dictionary.logoRemoveButton}
-              emptyLabel={dictionary.logoEmpty}
-              tone="light"
-              value={formValues.logoDataUrl}
-              onValueChange={(value) => updateValue("logoDataUrl", value)}
-            />
-            <Field label={dictionary.brandLocaleLabel}>
-              <select
-                name="brandLocale"
-                value={formValues.brandLocale}
-                onChange={(event) => updateValue("brandLocale", event.target.value)}
-                className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-950 outline-none"
-              >
-                <option value="et">Eesti</option>
-                <option value="en">English</option>
-              </select>
-            </Field>
+
+              <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+                <Field label={dictionary.descriptionLabel}>
+                  <textarea
+                    name="description"
+                    value={formValues.description}
+                    onChange={(event) => updateValue("description", event.target.value)}
+                    required
+                    minLength={12}
+                    maxLength={300}
+                    placeholder={dictionary.descriptionPlaceholder}
+                    className="min-h-44 w-full rounded-[24px] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none placeholder:text-slate-400 focus:border-orange-300/70"
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+                <LogoUploadField
+                  label={dictionary.logoUploadLabel}
+                  hint={dictionary.logoUploadHint}
+                  buttonLabel={dictionary.logoUploadButton}
+                  replaceLabel={dictionary.logoReplaceButton}
+                  removeLabel={dictionary.logoRemoveButton}
+                  emptyLabel={dictionary.logoEmpty}
+                  tone="light"
+                  layout="compact"
+                  value={formValues.logoDataUrl}
+                  onValueChange={(value) => updateValue("logoDataUrl", value)}
+                />
+              </div>
+
+              <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-4 sm:p-5">
+                <Field label={dictionary.brandLocaleLabel}>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <LanguageOption
+                      active={formValues.brandLocale === "et"}
+                      label="Eesti"
+                      value="et"
+                      onSelect={(value) => updateValue("brandLocale", value)}
+                    />
+                    <LanguageOption
+                      active={formValues.brandLocale === "en"}
+                      label="English"
+                      value="en"
+                      onSelect={(value) => updateValue("brandLocale", value)}
+                    />
+                  </div>
+                </Field>
+                <input type="hidden" name="brandLocale" value={formValues.brandLocale} />
+              </div>
+            </div>
           </div>
         </>
       ),
@@ -223,7 +248,6 @@ export function OnboardingForm({
       <input type="hidden" name="slug" value={formValues.slug} />
       <input type="hidden" name="description" value={formValues.description} />
       <input type="hidden" name="logoDataUrl" value={formValues.logoDataUrl} />
-      <input type="hidden" name="brandLocale" value={formValues.brandLocale} />
       <input type="hidden" name="contactEmail" value={formValues.contactEmail} />
       <input type="hidden" name="supportEmail" value={formValues.supportEmail} />
       <input type="hidden" name="website" value={formValues.website} />
@@ -340,5 +364,31 @@ function Field({
       <span className="text-sm font-medium text-slate-600">{label}</span>
       {children}
     </label>
+  );
+}
+
+function LanguageOption({
+  active,
+  label,
+  value,
+  onSelect,
+}: {
+  active: boolean;
+  label: string;
+  value: string;
+  onSelect: (value: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(value)}
+      className={
+        active
+          ? "rounded-[22px] border border-slate-900 bg-slate-900 px-4 py-4 text-left text-white"
+          : "rounded-[22px] border border-slate-200 bg-white px-4 py-4 text-left text-slate-600 hover:border-slate-300"
+      }
+    >
+      <div className="text-sm font-medium">{label}</div>
+    </button>
   );
 }

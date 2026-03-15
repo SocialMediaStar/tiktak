@@ -1,0 +1,127 @@
+{
+  "site": {
+    "title": "TikPop",
+    "description": "Creator subscriptions, realtime drops, and paid communities."
+  },
+  "nav": {
+    "brand": "TikPop",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
+  },
+  "landing": {
+    "badge": "Next.js + Prisma + Pusher + Stripe",
+    "moduleLabel": "Module",
+    "title": "TikPop starter for paid creator communities.",
+    "description": "The project is wired for App Router, Server Actions, Neon Postgres, Google auth and realtime channels. The next step is just adding env values and running Prisma push.",
+    "features": [
+      {
+        "title": "Realtime events",
+        "copy": "Pusher is ready for live drops, chat and admin-side updates."
+      },
+      {
+        "title": "Google auth",
+        "copy": "NextAuth and the Prisma adapter are ready to connect users directly into Neon."
+      },
+      {
+        "title": "Paid access",
+        "copy": "The Stripe wrapper and subscription model are in place for the next step."
+      },
+      {
+        "title": "Admin speed",
+        "copy": "shadcn/ui, react-hook-form and zod give the admin side a fast starting point."
+      }
+    ],
+    "shuffleCards": [
+      "Creator drops",
+      "Live chat",
+      "Paid tiers",
+      "Realtime feed"
+    ]
+  },
+  "waitlist": {
+    "placeholder": "you@example.com",
+    "submit": "Join the list",
+    "pending": "Sending...",
+    "invalidEmail": "Enter a valid email address.",
+    "invalidInput": "Invalid input.",
+    "success": "{email} was added to the waitlist placeholder."
+  },
+  "authModal": {
+    "close": "Close",
+    "signin": {
+      "heroTitle": "Return to your drops, members and paid content.",
+      "heroCopy": "Fast access for returning users. Keep the friction low and send them straight back into the product.",
+      "eyebrow": "Welcome back",
+      "title": "Pick up where you left off",
+      "description": "Use Google for one-tap access or continue with a passwordless email link.",
+      "cta": "Send sign-in link"
+    },
+    "signup": {
+      "heroTitle": "Start a cleaner onboarding flow for creators and fans.",
+      "heroCopy": "Use one modal for account creation, email verification and future social login expansion without rebuilding auth later.",
+      "eyebrow": "New account",
+      "title": "Open your creator workspace",
+      "description": "Start with social login or reserve your account with a single email verification link.",
+      "cta": "Create account"
+    },
+    "creatorAccess": "Creator Access",
+    "includedInFlow": "Included in the flow",
+    "benefits": [
+      "Google login ready with Prisma-backed sessions",
+      "Passwordless email flow fits MVP scope better",
+      "Paid community access can attach to the same user model"
+    ],
+    "metricSetup": "Setup",
+    "metricSetupValue": "Auth.js + Prisma",
+    "metricEmailFlow": "Email flow",
+    "metricEmailFlowValue": "Magic link",
+    "secureSession": "secure session",
+    "tabs": {
+      "signIn": "Sign in",
+      "signUp": "Sign up"
+    },
+    "googleTitle": "Continue with Google",
+    "googleCopy": "Instant account connection",
+    "tiktokTitle": "Connect TikTok",
+    "tiktokCopy": "Next step: Login Kit OAuth",
+    "googleDisabled": "The Google button activates after adding `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.",
+    "tiktokNote": "TikTok Login Kit uses the authorization code flow and localhost callbacks do not work in production. We should wire this in the next step.",
+    "emailDivider": "Or continue with email",
+    "displayName": "Display name",
+    "displayNamePlaceholder": "Studio, creator or team name",
+    "emailAddress": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "emailNote": "Recommended setup: keep email passwordless. Auth.js Email Provider handles verification flow with materially less surface area than building password auth from scratch.",
+    "emailSuccess": "Check your inbox for the sign-in link.",
+    "emailError": "The sign-in link could not be sent right now.",
+    "emailMissingConfig": "Email sign-in activates after adding `NEXTAUTH_SECRET`, `RESEND_API_KEY` and `EMAIL_FROM`.",
+    "emailPending": "Sending link..."
+  },
+  "signinPage": {
+    "title": "Sign in",
+    "description": "Google OAuth is ready as soon as the env values are added.",
+    "googleButton": "Continue with Google",
+    "missingConfig": "Add `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`."
+  },
+  "authEmail": {
+    "subject": "Sign in to {host}",
+    "title": "Sign in to {host}",
+    "copy": "Use the button below to continue to your TikPop account.",
+    "button": "Open sign-in link",
+    "ignore": "If you did not request this email, you can safely ignore it."
+  },
+  "verifyRequest": {
+    "eyebrow": "Magic link sent",
+    "title": "Check your inbox",
+    "description": "We sent a sign-in link to your email address. Open the message and continue back into TikPop.",
+    "note": "If the email does not show up in a minute, check spam or request a new link.",
+    "back": "Back to sign in"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "realtime": "Realtime",
+    "realtimePlaceholder": "Pusher hook-up placeholder",
+    "billing": "Billing",
+    "billingPlaceholder": "Stripe subscription placeholder"
+  }
+}

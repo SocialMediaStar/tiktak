@@ -1,0 +1,127 @@
+{
+  "site": {
+    "title": "TikPop",
+    "description": "Loojate tasulised kogukonnad, reaalajas teavitused ja liikmepõhine sisu."
+  },
+  "nav": {
+    "brand": "TikPop",
+    "signIn": "Logi sisse",
+    "signUp": "Registreeru"
+  },
+  "landing": {
+    "badge": "Next.js + Prisma + Pusher + Stripe",
+    "moduleLabel": "Moodul",
+    "title": "TikPop starter tasulistele loojakogukondadele.",
+    "description": "Projekt on valmis App Routeri, Server Actionsi, Neon Postgresi, Google authi ja realtime kanalite jaoks. Järgmine samm on env väärtuste lisamine ja Prisma push.",
+    "features": [
+      {
+        "title": "Reaalajas sündmused",
+        "copy": "Pusher on valmis live dropide, chati ja admini uuenduste jaoks."
+      },
+      {
+        "title": "Google auth",
+        "copy": "NextAuth ja Prisma adapter on valmis kasutajad otse Neonisse siduma."
+      },
+      {
+        "title": "Tasuline ligipääs",
+        "copy": "Stripe wrapper ja subscription mudel on järgmise sammu jaoks olemas."
+      },
+      {
+        "title": "Admini kiirus",
+        "copy": "shadcn/ui, react-hook-form ja zod annavad adminipoolele kiire aluse."
+      }
+    ],
+    "shuffleCards": [
+      "Loojate dropid",
+      "Live chat",
+      "Tasulised tasemed",
+      "Realtime feed"
+    ]
+  },
+  "waitlist": {
+    "placeholder": "sina@example.com",
+    "submit": "Liitu nimekirjaga",
+    "pending": "Saatmine...",
+    "invalidEmail": "Sisesta korrektne e-posti aadress.",
+    "invalidInput": "Vigane sisend.",
+    "success": "{email} lisati ootenimekirja placeholderina."
+  },
+  "authModal": {
+    "close": "Sulge",
+    "signin": {
+      "heroTitle": "Naase oma dropide, liikmete ja tasulise sisu juurde.",
+      "heroCopy": "Kiire ligipääs tagasitulevatele kasutajatele. Hoia hõõrdumine madal ja saada nad otse tagasi tootesse.",
+      "eyebrow": "Tere tagasi",
+      "title": "Jätka sealt, kus pooleli jäi",
+      "description": "Kasuta Google'it ühe klikiga sisenemiseks või jätka paroolivaba emaili lingiga.",
+      "cta": "Saada sisselogimislink"
+    },
+    "signup": {
+      "heroTitle": "Ehita puhtam onboarding loojatele ja fännidele.",
+      "heroCopy": "Kasuta ühte modali konto loomiseks, emaili kinnitamiseks ja tulevaste sotsiaal-loginide lisamiseks ilma authi ümber ehitamata.",
+      "eyebrow": "Uus konto",
+      "title": "Ava oma creator workspace",
+      "description": "Alusta social loginiga või broneeri konto ühe emaili kinnituse lingiga.",
+      "cta": "Loo konto"
+    },
+    "creatorAccess": "Creator Access",
+    "includedInFlow": "Flow sees",
+    "benefits": [
+      "Google login on valmis Prisma sessioonidega",
+      "Paroolivaba email flow sobib MVP ulatusega paremini",
+      "Tasuline kogukonna ligipääs saab kasutada sama user mudelit"
+    ],
+    "metricSetup": "Seadistus",
+    "metricSetupValue": "Auth.js + Prisma",
+    "metricEmailFlow": "Email flow",
+    "metricEmailFlowValue": "Magic link",
+    "secureSession": "turvaline sessioon",
+    "tabs": {
+      "signIn": "Logi sisse",
+      "signUp": "Registreeru"
+    },
+    "googleTitle": "Jätka Google'iga",
+    "googleCopy": "Kohene konto ühendamine",
+    "tiktokTitle": "Ühenda TikTok",
+    "tiktokCopy": "Järgmine samm: Login Kit OAuth",
+    "googleDisabled": "Google nupp aktiveerub pärast `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` ja `GOOGLE_CLIENT_SECRET` lisamist.",
+    "tiktokNote": "TikTok Login Kit kasutab authorization code flow'd ja productionis ei tööta localhost callbackid. Selle ühendame järgmise sammuna.",
+    "emailDivider": "Või jätka emailiga",
+    "displayName": "Kuvatav nimi",
+    "displayNamePlaceholder": "Stuudio, looja või tiimi nimi",
+    "emailAddress": "E-posti aadress",
+    "emailPlaceholder": "sina@example.com",
+    "emailNote": "Soovituslik setup: hoia email paroolivabana. Auth.js Email Provider teeb verifitseerimisvoo oluliselt väiksema keerukusega kui nullist password auth.",
+    "emailSuccess": "Kontrolli oma postkasti, sisselogimislink saadeti teele.",
+    "emailError": "Sisselogimislingi saatmine ei õnnestunud praegu.",
+    "emailMissingConfig": "Emaili sisselogimine aktiveerub pärast `NEXTAUTH_SECRET`, `RESEND_API_KEY` ja `EMAIL_FROM` lisamist.",
+    "emailPending": "Saadan linki..."
+  },
+  "signinPage": {
+    "title": "Logi sisse",
+    "description": "Google OAuth on valmis kohe, kui env väärtused on lisatud.",
+    "googleButton": "Jätka Google'iga",
+    "missingConfig": "Lisa `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` ja `GOOGLE_CLIENT_SECRET`."
+  },
+  "authEmail": {
+    "subject": "Logi sisse saidile {host}",
+    "title": "Logi sisse saidile {host}",
+    "copy": "Kasuta allolevat nuppu, et jätkata oma TikPop kontole.",
+    "button": "Ava sisselogimislink",
+    "ignore": "Kui sa ei küsinud seda kirja, võid selle turvaliselt ignoreerida."
+  },
+  "verifyRequest": {
+    "eyebrow": "Magic link saadetud",
+    "title": "Kontrolli oma postkasti",
+    "description": "Saatsime sinu e-postile sisselogimislingi. Ava kiri ja jätka sealt tagasi TikPopi.",
+    "note": "Kui kiri minuti jooksul ei jõua kohale, kontrolli spämmikausta või küsi uus link.",
+    "back": "Tagasi sisselogimisse"
+  },
+  "dashboard": {
+    "welcome": "Tere tulemast",
+    "realtime": "Realtime",
+    "realtimePlaceholder": "Pusheri ühenduse placeholder",
+    "billing": "Arveldus",
+    "billingPlaceholder": "Stripe subscriptioni placeholder"
+  }
+}

@@ -183,6 +183,7 @@ function AuthFormShell({
       <Divider label={dictionary.emailDivider} />
       <EmailSignInForm
         callbackUrl={`/${locale}/dashboard`}
+        verifyRequestUrl={`/${locale}/verify-request`}
         dictionary={dictionary}
         cta={cta}
         enabled={hasEmailAuth}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import type { Dictionary } from "@/i18n/get-dictionary";
 
 type EmailSigninFormProps = {
   callbackUrl: string;
+  verifyRequestUrl: string;
   dictionary: Dictionary["authModal"];
   cta: string;
   compact?: boolean;
@@ -17,6 +18,7 @@ type EmailSigninFormProps = {
 
 export function EmailSignInForm({
   callbackUrl,
+  verifyRequestUrl,
   dictionary,
   cta,
   compact = false,
@@ -25,6 +27,7 @@ export function EmailSignInForm({
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "error">("idle");
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   return (
     <form
@@ -36,10 +39,36 @@ export function EmailSignInForm({
           setStatus("idle");
 
           try {
-            await signIn("email", {
+            const csrfResponse = await fetch("/api/auth/csrf");
+            const csrfData = (await csrfResponse.json()) as { csrfToken?: string };
+
+            if (!csrfData.csrfToken) {
+              throw new Error("Missing CSRF token");
+            }
+
+            const body = new URLSearchParams({
               email,
               callbackUrl,
+              csrfToken: csrfData.csrfToken,
             });
+
+            const response = await fetch("/api/auth/signin/email", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: body.toString(),
+            });
+
+            if (
+              response.url.includes("/auth/error") ||
+              response.url.includes("/signin?error=") ||
+              (!response.ok && !response.redirected)
+            ) {
+              throw new Error("Email sign-in failed");
+            }
+
+            router.push(`${verifyRequestUrl}?email=${encodeURIComponent(email)}`);
           } catch {
             setStatus("error");
           }

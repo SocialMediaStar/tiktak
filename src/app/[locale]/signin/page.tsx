@@ -52,6 +52,7 @@ export default async function SignInPage({
           ) : null}
           <EmailSignInForm
             callbackUrl={`/${locale}/dashboard`}
+            verifyRequestUrl={`/${locale}/verify-request`}
             dictionary={dictionary.authModal}
             cta={dictionary.authModal.signin.cta}
             enabled={hasEmailAuthEnv}

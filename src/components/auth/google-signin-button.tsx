@@ -19,7 +19,7 @@ export function GoogleSignInButton({
       type="button"
       className="w-full"
       disabled={!enabled}
-      onClick={() => signIn("google", { callbackUrl: `/${locale}/dashboard` })}
+      onClick={() => signIn("google", { callbackUrl: `/${locale}/onboarding` })}
     >
       {label}
     </Button>

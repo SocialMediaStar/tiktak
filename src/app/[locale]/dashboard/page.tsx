@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { authOptions } from "@/lib/auth";
+import { getUserBrandMembership } from "@/lib/brand";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
@@ -17,8 +18,14 @@ export default async function DashboardPage({
   const dictionary = getDictionary(locale);
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session?.user?.id) {
     redirect(`/${locale}/signin`);
+  }
+
+  const membership = await getUserBrandMembership(session.user.id);
+
+  if (!membership?.brand.onboardingCompleted) {
+    redirect(`/${locale}/onboarding`);
   }
 
   return (
@@ -38,6 +45,12 @@ export default async function DashboardPage({
             <CardTitle>{dictionary.dashboard.welcome}</CardTitle>
           </CardHeader>
           <CardContent>{session.user?.email}</CardContent>
+        </Card>
+        <Card className="border-white/10 bg-white/5 text-white">
+          <CardHeader>
+            <CardTitle>{dictionary.dashboard.brand}</CardTitle>
+          </CardHeader>
+          <CardContent>{membership.brand.name ?? dictionary.dashboard.brandPlaceholder}</CardContent>
         </Card>
         <Card className="border-white/10 bg-white/5 text-white">
           <CardHeader>

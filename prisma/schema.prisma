@@ -25,6 +25,7 @@ model User {
   accounts       Account[]
   sessions       Session[]
   subscriptions  Subscription[]
+  brandMemberships BrandMember[]
 }
 
 model WaitlistEntry {
@@ -85,6 +86,39 @@ model Subscription {
   user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Brand {
+  id                  String       @id @default(cuid())
+  name                String
+  slug                String       @unique
+  logoUrl             String?
+  description         String?
+  contactEmail        String
+  supportEmail        String?
+  website             String?
+  tiktokHandle        String?
+  companyName         String?
+  phone               String?
+  country             String
+  locale              String
+  onboardingCompleted Boolean      @default(false)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  members             BrandMember[]
+}
+
+model BrandMember {
+  id        String    @id @default(cuid())
+  userId    String
+  brandId   String
+  role      BrandRole @default(OWNER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  brand     Brand     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, brandId])
+}
+
 enum Role {
   USER
   ADMIN
@@ -97,4 +131,10 @@ enum SubscriptionStatus {
   CANCELED
   UNPAID
   TRIALING
+}
+
+enum BrandRole {
+  OWNER
+  ADMIN
+  MEMBER
 }

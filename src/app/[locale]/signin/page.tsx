@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { EmailSignInForm } from "@/components/auth/email-signin-form";
 import { GoogleSignInButton } from "@/components/auth/google-signin-button";
 import { authOptions } from "@/lib/auth";
+import { getUserBrandMembership } from "@/lib/brand";
 import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
@@ -23,8 +24,9 @@ export default async function SignInPage({
   const session = await getServerSession(authOptions);
   const error = typeof query.error === "string" ? query.error : null;
 
-  if (session) {
-    redirect(`/${locale}/dashboard`);
+  if (session?.user?.id) {
+    const membership = await getUserBrandMembership(session.user.id);
+    redirect(`/${locale}/${membership?.brand.onboardingCompleted ? "dashboard" : "onboarding"}`);
   }
 
   return (
@@ -51,7 +53,7 @@ export default async function SignInPage({
             <p className="text-sm text-amber-200">{dictionary.signinPage.missingConfig}</p>
           ) : null}
           <EmailSignInForm
-            callbackUrl={`/${locale}/dashboard`}
+            callbackUrl={`/${locale}/onboarding`}
             verifyRequestUrl={`/${locale}/verify-request`}
             dictionary={dictionary.authModal}
             cta={dictionary.authModal.signin.cta}

@@ -182,7 +182,7 @@ function AuthFormShell({
       <SocialButtons hasGoogleAuth={hasGoogleAuth} locale={locale} dictionary={dictionary} />
       <Divider label={dictionary.emailDivider} />
       <EmailSignInForm
-        callbackUrl={`/${locale}/dashboard`}
+        callbackUrl={`/${locale}/onboarding`}
         verifyRequestUrl={`/${locale}/verify-request`}
         dictionary={dictionary}
         cta={cta}
@@ -208,7 +208,7 @@ function SocialButtons({
         variant="outline"
         className="h-14 justify-start gap-3 rounded-2xl border-white/12 bg-white/[0.045] px-4 text-left text-white hover:bg-white/10"
         disabled={!hasGoogleAuth}
-        onClick={() => signIn("google", { callbackUrl: `/${locale}/dashboard` })}
+        onClick={() => signIn("google", { callbackUrl: `/${locale}/onboarding` })}
       >
         <span className="flex size-9 items-center justify-center rounded-full bg-white/10">
           <Chrome className="size-4" />

@@ -8,6 +8,7 @@ import { authOptions } from "@/lib/auth";
 import { getUserBrandMembership } from "@/lib/brand";
 import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { getLocalePath } from "@/i18n/locale-path";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
 export default async function SignInPage({
@@ -26,7 +27,12 @@ export default async function SignInPage({
 
   if (session?.user?.id) {
     const membership = await getUserBrandMembership(session.user.id);
-    redirect(`/${locale}/${membership?.brand.onboardingCompleted ? "dashboard" : "onboarding"}`);
+    redirect(
+      getLocalePath(
+        locale,
+        membership?.brand.onboardingCompleted ? "/dashboard" : "/onboarding",
+      ),
+    );
   }
 
   return (
@@ -53,8 +59,8 @@ export default async function SignInPage({
             <p className="text-sm text-amber-200">{dictionary.signinPage.missingConfig}</p>
           ) : null}
           <EmailSignInForm
-            callbackUrl={`/${locale}/onboarding`}
-            verifyRequestUrl={`/${locale}/verify-request`}
+            callbackUrl={getLocalePath(locale, "/onboarding")}
+            verifyRequestUrl={getLocalePath(locale, "/verify-request")}
             dictionary={dictionary.authModal}
             cta={dictionary.authModal.signin.cta}
             enabled={hasEmailAuthEnv}

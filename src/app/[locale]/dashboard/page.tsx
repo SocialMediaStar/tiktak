@@ -1,11 +1,14 @@
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { SignOutButton } from "@/components/auth/sign-out-button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { authOptions } from "@/lib/auth";
 import { getUserBrandMembership } from "@/lib/brand";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { getLocalePath } from "@/i18n/locale-path";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
 export default async function DashboardPage({
@@ -19,13 +22,13 @@ export default async function DashboardPage({
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
-    redirect(`/${locale}/signin`);
+    redirect(getLocalePath(locale, "/signin"));
   }
 
   const membership = await getUserBrandMembership(session.user.id);
 
   if (!membership?.brand.onboardingCompleted) {
-    redirect(`/${locale}/onboarding`);
+    redirect(getLocalePath(locale, "/onboarding"));
   }
 
   return (
@@ -36,7 +39,12 @@ export default async function DashboardPage({
             <p className="text-sm text-white/50">{dictionary.dashboard.signedInAs}</p>
             <p className="text-base text-white">{session.user?.email}</p>
           </div>
-          <SignOutButton locale={locale} label={dictionary.dashboard.signOut} />
+          <div className="flex items-center gap-3">
+            <Button asChild variant="outline" className="rounded-full border-white/12 bg-white/6 text-white hover:bg-white/10">
+              <Link href={getLocalePath(locale, "/brand")}>{dictionary.dashboard.manageBrand}</Link>
+            </Button>
+            <SignOutButton locale={locale} label={dictionary.dashboard.signOut} />
+          </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">

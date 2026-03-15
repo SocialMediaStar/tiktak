@@ -162,10 +162,41 @@
     "signedInAs": "Sisse logitud kui",
     "brand": "Bränd",
     "brandPlaceholder": "Brändi ei ole veel seotud.",
+    "manageBrand": "Halda brändi",
     "realtime": "Realtime",
     "realtimePlaceholder": "Pusheri ühenduse placeholder",
     "billing": "Arveldus",
     "billingPlaceholder": "Stripe subscriptioni placeholder",
     "signOut": "Logi välja"
+  },
+  "brandSettings": {
+    "eyebrow": "Brändi seaded",
+    "title": "Halda oma brändi profiili",
+    "description": "Uuenda avalikke ja sisemisi andmeid, mis on seotud sinu looja või ettevõtte workspace’iga.",
+    "nameLabel": "Brändi nimi",
+    "descriptionLabel": "Lühikirjeldus",
+    "contactEmailLabel": "Kontakt-email",
+    "supportEmailLabel": "Support email",
+    "websiteLabel": "Veebileht",
+    "tiktokLabel": "TikToki kasutajanimi",
+    "logoUrlLabel": "Logo URL",
+    "companyNameLabel": "Juriidiline nimi",
+    "phoneLabel": "Telefon",
+    "countryLabel": "Riik",
+    "brandLocaleLabel": "Brändi vaikekeel",
+    "submit": "Salvesta muudatused",
+    "pending": "Salvestan muudatusi...",
+    "success": "Brändi profiil uuendatud.",
+    "validation": {
+      "generic": "Vigane brändi sisend.",
+      "name": "Brändi nimi peab olema vähemalt 2 tähemärki.",
+      "description": "Kirjeldus peab olema vähemalt 12 tähemärki.",
+      "contactEmail": "Sisesta korrektne kontakt-email.",
+      "supportEmail": "Sisesta korrektne support email.",
+      "website": "Sisesta korrektne veebilehe URL.",
+      "logoUrl": "Sisesta korrektne logo URL.",
+      "country": "Riik on kohustuslik.",
+      "unauthorized": "Sul puudub õigus seda brändi uuendada."
+    }
   }
 }

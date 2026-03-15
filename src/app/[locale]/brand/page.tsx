@@ -1,16 +1,16 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { OnboardingForm } from "@/components/onboarding/onboarding-form";
+import { BrandSettingsForm } from "@/components/brand/brand-settings-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { authOptions } from "@/lib/auth";
 import { getUserBrandMembership } from "@/lib/brand";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { getLocalePath } from "@/i18n/locale-path";
 import { resolveLocale } from "@/i18n/resolve-locale";
-import { createBrandOnboarding } from "@/lib/onboarding-actions";
+import { updateBrandProfile } from "@/lib/onboarding-actions";
 
-export default async function OnboardingPage({
+export default async function BrandPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -26,30 +26,35 @@ export default async function OnboardingPage({
 
   const membership = await getUserBrandMembership(session.user.id);
 
-  if (membership?.brand.onboardingCompleted) {
-    redirect(getLocalePath(locale, "/dashboard"));
+  if (!membership?.brand) {
+    redirect(getLocalePath(locale, "/onboarding"));
   }
 
-  const action = createBrandOnboarding.bind(null, session.user.id);
+  const action = updateBrandProfile.bind(null, session.user.id, membership.brand.id);
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(255,138,61,0.18),transparent_28%),linear-gradient(135deg,#1c1917,#0f172a)] px-6 py-10 text-white">
+    <main className="min-h-screen bg-stone-950 px-6 py-10 text-white">
       <div className="mx-auto max-w-4xl space-y-8">
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.28em] text-orange-300/80">
-            {dictionary.onboarding.eyebrow}
+            {dictionary.brandSettings.eyebrow}
           </p>
           <h1 className="text-4xl font-semibold tracking-[-0.04em]">
-            {dictionary.onboarding.title}
+            {dictionary.brandSettings.title}
           </h1>
           <p className="max-w-3xl text-base leading-8 text-white/68">
-            {dictionary.onboarding.description}
+            {dictionary.brandSettings.description}
           </p>
         </div>
 
         <Card className="border-white/10 bg-white/6 p-3 backdrop-blur-xl">
           <CardContent className="p-6">
-            <OnboardingForm action={action} locale={locale} dictionary={dictionary.onboarding} />
+            <BrandSettingsForm
+              action={action}
+              locale={locale}
+              dictionary={dictionary.brandSettings}
+              brand={membership.brand}
+            />
           </CardContent>
         </Card>
       </div>

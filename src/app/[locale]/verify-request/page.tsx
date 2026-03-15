@@ -4,6 +4,7 @@ import { MailCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { getLocalePath } from "@/i18n/locale-path";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
 export default async function VerifyRequestPage({
@@ -44,7 +45,7 @@ export default async function VerifyRequestPage({
             {dictionary.verifyRequest.note}
           </div>
           <Button asChild className="rounded-2xl px-5">
-            <Link href={`/${locale}/signin`}>{dictionary.verifyRequest.back}</Link>
+            <Link href={getLocalePath(locale, "/signin")}>{dictionary.verifyRequest.back}</Link>
           </Button>
         </CardContent>
       </Card>

@@ -5,6 +5,7 @@ import { AuthModal } from "@/components/auth/auth-modal";
 import { Button } from "@/components/ui/button";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
+import { getLocalePath } from "@/i18n/locale-path";
 
 export function LandingNavbar({
   hasGoogleAuth,
@@ -21,7 +22,7 @@ export function LandingNavbar({
     <header className="sticky top-0 z-30">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <Link
-          href={`/${locale}`}
+          href={getLocalePath(locale)}
           className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm font-medium text-white backdrop-blur"
         >
           <span className="flex size-8 items-center justify-center rounded-full bg-orange-400/90 text-slate-950">

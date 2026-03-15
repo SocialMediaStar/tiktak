@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import { getLocalePath } from "@/i18n/locale-path";
 import type { OnboardingState } from "@/lib/onboarding-actions";
 
 const initialState: OnboardingState = {
@@ -31,7 +32,7 @@ export function OnboardingForm({
 
   useEffect(() => {
     if (state.success) {
-      router.push(`/${locale}/dashboard`);
+      router.push(getLocalePath(locale, "/dashboard"));
     }
   }, [locale, router, state.success]);
 

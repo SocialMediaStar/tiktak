@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { getLocalePath } from "@/i18n/locale-path";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
 export default async function LocalizedAuthErrorRedirectPage({
@@ -19,5 +20,5 @@ export default async function LocalizedAuthErrorRedirectPage({
     target.set("error", error);
   }
 
-  redirect(`/${locale}/signin${target.toString() ? `?${target.toString()}` : ""}`);
+  redirect(`${getLocalePath(locale, "/signin")}${target.toString() ? `?${target.toString()}` : ""}`);
 }

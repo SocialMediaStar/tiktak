@@ -16,6 +16,12 @@ export function middleware(request: NextRequest) {
 
   const [, maybeLocale] = pathname.split("/");
 
+  if (maybeLocale === defaultLocale) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(`/${defaultLocale}`, "") || "/";
+    return NextResponse.redirect(url);
+  }
+
   if (isLocale(maybeLocale)) {
     return NextResponse.next();
   }
@@ -23,7 +29,7 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = pathname === "/" ? `/${defaultLocale}` : `/${defaultLocale}${pathname}`;
 
-  return NextResponse.redirect(url);
+  return NextResponse.rewrite(url);
 }
 
 export const config = {

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { defaultLocale } from "@/i18n/config";
+import { getLocalePath } from "@/i18n/locale-path";
 
 export default async function AuthErrorRedirectPage({
   searchParams,
@@ -15,5 +16,5 @@ export default async function AuthErrorRedirectPage({
     target.set("error", error);
   }
 
-  redirect(`/${defaultLocale}/signin${target.toString() ? `?${target.toString()}` : ""}`);
+  redirect(`${getLocalePath(defaultLocale, "/signin")}${target.toString() ? `?${target.toString()}` : ""}`);
 }

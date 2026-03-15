@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { getLocaleFromCallbackUrl } from "@/i18n/get-locale-from-callback-url";
+import { getLocalePath } from "@/i18n/locale-path";
 
 export default async function VerifyRequestRedirectPage({
   searchParams,
@@ -18,5 +19,5 @@ export default async function VerifyRequestRedirectPage({
     target.set("email", email);
   }
 
-  redirect(`/${locale}/verify-request${target.toString() ? `?${target.toString()}` : ""}`);
+  redirect(`${getLocalePath(locale, "/verify-request")}${target.toString() ? `?${target.toString()}` : ""}`);
 }

@@ -162,10 +162,41 @@
     "signedInAs": "Signed in as",
     "brand": "Brand",
     "brandPlaceholder": "No brand connected yet.",
+    "manageBrand": "Manage brand",
     "realtime": "Realtime",
     "realtimePlaceholder": "Pusher hook-up placeholder",
     "billing": "Billing",
     "billingPlaceholder": "Stripe subscription placeholder",
     "signOut": "Sign out"
+  },
+  "brandSettings": {
+    "eyebrow": "Brand settings",
+    "title": "Manage your brand profile",
+    "description": "Update the public and operational details tied to your creator or business workspace.",
+    "nameLabel": "Brand name",
+    "descriptionLabel": "Short description",
+    "contactEmailLabel": "Contact email",
+    "supportEmailLabel": "Support email",
+    "websiteLabel": "Website",
+    "tiktokLabel": "TikTok handle",
+    "logoUrlLabel": "Logo URL",
+    "companyNameLabel": "Legal company name",
+    "phoneLabel": "Phone",
+    "countryLabel": "Country",
+    "brandLocaleLabel": "Default brand locale",
+    "submit": "Save changes",
+    "pending": "Saving changes...",
+    "success": "Brand profile updated.",
+    "validation": {
+      "generic": "Invalid brand input.",
+      "name": "Brand name must be at least 2 characters.",
+      "description": "Description must be at least 12 characters.",
+      "contactEmail": "Enter a valid contact email.",
+      "supportEmail": "Enter a valid support email.",
+      "website": "Enter a valid website URL.",
+      "logoUrl": "Enter a valid logo URL.",
+      "country": "Country is required.",
+      "unauthorized": "You do not have access to update this brand."
+    }
   }
 }

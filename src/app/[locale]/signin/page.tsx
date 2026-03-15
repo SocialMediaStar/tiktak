@@ -1,6 +1,10 @@
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmailSignInForm } from "@/components/auth/email-signin-form";
 import { GoogleSignInButton } from "@/components/auth/google-signin-button";
+import { authOptions } from "@/lib/auth";
 import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
@@ -13,6 +17,11 @@ export default async function SignInPage({
   const { locale: localeParam } = await params;
   const locale = resolveLocale(localeParam);
   const dictionary = getDictionary(locale);
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect(`/${locale}/dashboard`);
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,138,61,0.22),transparent_28%),linear-gradient(135deg,#1c1917,#0f172a)] p-6 text-white">

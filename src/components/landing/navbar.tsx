@@ -9,11 +9,13 @@ import type { Locale } from "@/i18n/config";
 export function LandingNavbar({
   hasGoogleAuth,
   hasEmailAuth,
+  sandboxRecipient,
   locale,
   dictionary,
 }: {
   hasGoogleAuth: boolean;
   hasEmailAuth: boolean;
+  sandboxRecipient?: string;
   locale: Locale;
   dictionary: Dictionary["nav"] & { authModal: Dictionary["authModal"] };
 }) {
@@ -34,6 +36,7 @@ export function LandingNavbar({
           <AuthModal
             hasGoogleAuth={hasGoogleAuth}
             hasEmailAuth={hasEmailAuth}
+            sandboxRecipient={sandboxRecipient}
             defaultTab="signin"
             locale={locale}
             dictionary={dictionary.authModal}
@@ -48,6 +51,7 @@ export function LandingNavbar({
           <AuthModal
             hasGoogleAuth={hasGoogleAuth}
             hasEmailAuth={hasEmailAuth}
+            sandboxRecipient={sandboxRecipient}
             defaultTab="signup"
             locale={locale}
             dictionary={dictionary.authModal}

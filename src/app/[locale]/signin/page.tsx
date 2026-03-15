@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { EmailSignInForm } from "@/components/auth/email-signin-form";
 import { GoogleSignInButton } from "@/components/auth/google-signin-button";
 import { authOptions } from "@/lib/auth";
-import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
+import { env, hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
@@ -46,6 +46,7 @@ export default async function SignInPage({
             dictionary={dictionary.authModal}
             cta={dictionary.authModal.signin.cta}
             enabled={hasEmailAuthEnv}
+            sandboxRecipient={env.AUTH_TEST_RECIPIENT || undefined}
             compact
           />
         </CardContent>

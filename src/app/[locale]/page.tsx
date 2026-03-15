@@ -4,7 +4,7 @@ import { WaitlistForm } from "@/components/forms/waitlist-form";
 import { ShuffleGrid } from "@/components/landing/shuffle-grid";
 import { LandingNavbar } from "@/components/landing/navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
+import { env, hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
@@ -24,6 +24,7 @@ export default async function HomePage({
       <LandingNavbar
         hasGoogleAuth={hasAuthEnv}
         hasEmailAuth={hasEmailAuthEnv}
+        sandboxRecipient={env.AUTH_TEST_RECIPIENT || undefined}
         locale={locale}
         dictionary={{ ...dictionary.nav, authModal: dictionary.authModal }}
       />

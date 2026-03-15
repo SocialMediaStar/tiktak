@@ -92,6 +92,7 @@
     "emailPlaceholder": "sina@example.com",
     "emailNote": "Soovituslik setup: hoia email paroolivabana. Auth.js Email Provider teeb verifitseerimisvoo oluliselt väiksema keerukusega kui nullist password auth.",
     "emailError": "Sisselogimislingi saatmine ei õnnestunud praegu.",
+    "emailSandbox": "Resend on veel testrežiimis. Praegu töötab emailiga sisselogimine ainult aadressil {email}.",
     "emailMissingConfig": "Emaili sisselogimine aktiveerub pärast `NEXTAUTH_SECRET`, `RESEND_API_KEY` ja `EMAIL_FROM` lisamist.",
     "emailPending": "Saadan linki..."
   },

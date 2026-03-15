@@ -92,6 +92,7 @@
     "emailPlaceholder": "you@example.com",
     "emailNote": "Recommended setup: keep email passwordless. Auth.js Email Provider handles verification flow with materially less surface area than building password auth from scratch.",
     "emailError": "The sign-in link could not be sent right now.",
+    "emailSandbox": "Resend is still in testing mode. For now, email sign-in only works with {email}.",
     "emailMissingConfig": "Email sign-in activates after adding `NEXTAUTH_SECRET`, `RESEND_API_KEY` and `EMAIL_FROM`.",
     "emailPending": "Sending link..."
   },

@@ -21,6 +21,7 @@ const serverSchema = z.object({
   NEXT_PUBLIC_STRIPE_PRICE_ID: z.string().default(""),
   RESEND_API_KEY: z.string().default(""),
   EMAIL_FROM: z.string().default(""),
+  AUTH_TEST_RECIPIENT: z.string().default(""),
 });
 
 export const env = serverSchema.parse(process.env);

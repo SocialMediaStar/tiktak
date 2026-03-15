@@ -13,6 +13,7 @@ type EmailSigninFormProps = {
   cta: string;
   compact?: boolean;
   enabled: boolean;
+  sandboxRecipient?: string;
 };
 
 export function EmailSignInForm({
@@ -21,9 +22,10 @@ export function EmailSignInForm({
   cta,
   compact = false,
   enabled,
+  sandboxRecipient,
 }: EmailSigninFormProps) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sandbox" | "error">("idle");
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -34,6 +36,14 @@ export function EmailSignInForm({
 
         startTransition(async () => {
           setStatus("idle");
+
+          if (
+            sandboxRecipient &&
+            email.trim().toLowerCase() !== sandboxRecipient.trim().toLowerCase()
+          ) {
+            setStatus("sandbox");
+            return;
+          }
 
           try {
             await signIn("email", {
@@ -68,6 +78,11 @@ export function EmailSignInForm({
       ) : null}
       {status === "error" ? (
         <p className="text-xs leading-6 text-amber-200">{dictionary.emailError}</p>
+      ) : null}
+      {status === "sandbox" ? (
+        <p className="text-xs leading-6 text-amber-200">
+          {dictionary.emailSandbox.replace("{email}", sandboxRecipient ?? "")}
+        </p>
       ) : null}
       {!compact ? (
         <p className="text-xs leading-6 text-white/48">{dictionary.emailNote}</p>

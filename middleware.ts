@@ -3,6 +3,15 @@ import type { NextRequest } from "next/server";
 
 import { defaultLocale, isLocale } from "@/i18n/config";
 
+const unprefixedRoutes = new Set([
+  "/signin",
+  "/onboarding",
+  "/dashboard",
+  "/brand",
+  "/verify-request",
+  "/auth/error",
+]);
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -23,6 +32,10 @@ export function middleware(request: NextRequest) {
   }
 
   if (isLocale(maybeLocale)) {
+    return NextResponse.next();
+  }
+
+  if (unprefixedRoutes.has(pathname)) {
     return NextResponse.next();
   }
 

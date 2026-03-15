@@ -52,53 +52,53 @@ export default async function OnboardingPage({
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2f7_100%)] px-4 py-6 text-slate-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-6 lg:grid-cols-[420px_minmax(0,1fr)] xl:gap-8">
+        <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] xl:grid-cols-[340px_minmax(0,1fr)] xl:gap-8">
           <aside className="lg:sticky lg:top-6 lg:self-start">
-            <div className="overflow-hidden rounded-[36px] border border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.16),_transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-8">
-              <div className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.26em] text-orange-700">
+            <div className="overflow-hidden rounded-[30px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.06)] sm:p-6">
+              <div className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.24em] text-orange-700">
                 {dictionary.onboarding.setupLabel}
               </div>
 
-              <div className="mt-6 space-y-4">
-                <p className="text-sm font-medium uppercase tracking-[0.24em] text-slate-400">
+              <div className="mt-5 space-y-3">
+                <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400">
                   {dictionary.onboarding.eyebrow}
                 </p>
-                <h1 className="max-w-sm text-4xl font-semibold tracking-[-0.05em] text-slate-950">
+                <h1 className="max-w-xs text-3xl font-semibold tracking-[-0.05em] text-slate-950">
                   {dictionary.onboarding.title}
                 </h1>
-                <p className="max-w-md text-base leading-8 text-slate-600">
+                <p className="max-w-sm text-sm leading-7 text-slate-600">
                   {dictionary.onboarding.description}
                 </p>
               </div>
 
-              <div className="mt-8 rounded-[28px] border border-slate-200 bg-slate-50 p-5">
-                <h2 className="text-lg font-semibold tracking-[-0.03em] text-slate-950">
+              <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50/80 p-4">
+                <h2 className="text-base font-semibold tracking-[-0.03em] text-slate-950">
                   {dictionary.onboarding.helperTitle}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   {dictionary.onboarding.helperDescription}
                 </p>
               </div>
 
-              <div className="mt-8 space-y-4">
+              <div className="mt-6 space-y-3">
                 {steps.map((step, index) => (
                   <div
                     key={step.title}
-                    className="flex gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_12px_36px_rgba(15,23,42,0.05)]"
+                    className="flex gap-3 rounded-[22px] border border-slate-200 bg-white p-4"
                   >
-                    <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white">
                       {step.icon}
                     </div>
-                    <div className="space-y-2">
+                    <div className="min-w-0 space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
+                        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
                           0{index + 1}
                         </span>
                       </div>
-                      <h3 className="text-base font-semibold tracking-[-0.02em] text-slate-950">
+                      <h3 className="text-sm font-semibold tracking-[-0.02em] text-slate-950">
                         {step.title}
                       </h3>
-                      <p className="text-sm leading-7 text-slate-600">{step.copy}</p>
+                      <p className="text-sm leading-6 text-slate-600">{step.copy}</p>
                     </div>
                   </div>
                 ))}

@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { authOptions } from "@/lib/auth";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -22,7 +23,16 @@ export default async function DashboardPage({
 
   return (
     <main className="min-h-screen bg-stone-950 p-6 text-white">
-      <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+      <div className="mx-auto max-w-5xl space-y-6">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm text-white/50">{dictionary.dashboard.signedInAs}</p>
+            <p className="text-base text-white">{session.user?.email}</p>
+          </div>
+          <SignOutButton locale={locale} label={dictionary.dashboard.signOut} />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
         <Card className="border-white/10 bg-white/5 text-white">
           <CardHeader>
             <CardTitle>{dictionary.dashboard.welcome}</CardTitle>
@@ -41,6 +51,7 @@ export default async function DashboardPage({
           </CardHeader>
           <CardContent>{dictionary.dashboard.billingPlaceholder}</CardContent>
         </Card>
+        </div>
       </div>
     </main>
   );

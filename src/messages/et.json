@@ -12,7 +12,7 @@
     "badge": "Next.js + Prisma + Pusher + Stripe",
     "moduleLabel": "Moodul",
     "title": "TikPop starter tasulistele loojakogukondadele.",
-    "description": "Projekt on valmis App Routeri, Server Actionsi, Neon Postgresi, Google authi ja realtime kanalite jaoks. Järgmine samm on env väärtuste lisamine ja Prisma push.",
+    "description": "Põhistack jookseb nüüd Vercelis koos Neoni, lokaliseeritud email authi ja creator-first avalehega. Järgmised kihid on Google, TikTok, billing ja päris realtime tootevood.",
     "features": [
       {
         "title": "Reaalajas sündmused",
@@ -44,7 +44,8 @@
     "pending": "Saatmine...",
     "invalidEmail": "Sisesta korrektne e-posti aadress.",
     "invalidInput": "Vigane sisend.",
-    "success": "{email} lisati ootenimekirja placeholderina."
+    "success": "{email} lisati ootenimekirja.",
+    "alreadyJoined": "{email} on juba ootenimekirjas."
   },
   "authModal": {
     "close": "Sulge",
@@ -116,9 +117,11 @@
   },
   "dashboard": {
     "welcome": "Tere tulemast",
+    "signedInAs": "Sisse logitud kui",
     "realtime": "Realtime",
     "realtimePlaceholder": "Pusheri ühenduse placeholder",
     "billing": "Arveldus",
-    "billingPlaceholder": "Stripe subscriptioni placeholder"
+    "billingPlaceholder": "Stripe subscriptioni placeholder",
+    "signOut": "Logi välja"
   }
 }

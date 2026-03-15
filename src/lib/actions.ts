@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { prisma } from "@/lib/prisma";
 
 export type WaitlistState = {
   message: string;
@@ -31,6 +32,26 @@ export async function joinWaitlist(
       success: false,
     };
   }
+
+  const existingSubscriber = await prisma.waitlistEntry.findUnique({
+    where: {
+      email: parsed.data.email,
+    },
+  });
+
+  if (existingSubscriber) {
+    return {
+      message: dictionary.alreadyJoined.replace("{email}", parsed.data.email),
+      success: true,
+    };
+  }
+
+  await prisma.waitlistEntry.create({
+    data: {
+      email: parsed.data.email,
+      locale,
+    },
+  });
 
   return {
     message: dictionary.success.replace("{email}", parsed.data.email),

@@ -12,7 +12,7 @@
     "badge": "Next.js + Prisma + Pusher + Stripe",
     "moduleLabel": "Module",
     "title": "TikPop starter for paid creator communities.",
-    "description": "The project is wired for App Router, Server Actions, Neon Postgres, Google auth and realtime channels. The next step is just adding env values and running Prisma push.",
+    "description": "The core stack is live on Vercel with Neon, localized email auth and a creator-first landing flow. Next layers are Google, TikTok, billing and realtime product features.",
     "features": [
       {
         "title": "Realtime events",
@@ -44,7 +44,8 @@
     "pending": "Sending...",
     "invalidEmail": "Enter a valid email address.",
     "invalidInput": "Invalid input.",
-    "success": "{email} was added to the waitlist placeholder."
+    "success": "{email} was added to the waitlist.",
+    "alreadyJoined": "{email} is already on the waitlist."
   },
   "authModal": {
     "close": "Close",
@@ -116,9 +117,11 @@
   },
   "dashboard": {
     "welcome": "Welcome",
+    "signedInAs": "Signed in as",
     "realtime": "Realtime",
     "realtimePlaceholder": "Pusher hook-up placeholder",
     "billing": "Billing",
-    "billingPlaceholder": "Stripe subscription placeholder"
+    "billingPlaceholder": "Stripe subscription placeholder",
+    "signOut": "Sign out"
   }
 }

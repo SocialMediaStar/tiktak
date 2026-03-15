@@ -52,12 +52,15 @@ export function OnboardingForm({
             />
           </Field>
           <Field label={dictionary.slugLabel}>
-            <Input
-              name="slug"
-              placeholder={dictionary.slugPlaceholder}
-              required
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-            />
+            <div className="space-y-2">
+              <Input
+                name="slug"
+                placeholder={dictionary.slugPlaceholder}
+                required
+                className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+              />
+              <p className="text-sm leading-6 text-slate-500">{dictionary.slugHint}</p>
+            </div>
           </Field>
         </div>
         <Field label={dictionary.descriptionLabel}>

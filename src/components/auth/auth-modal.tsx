@@ -32,7 +32,6 @@ type AuthModalProps = {
   defaultTab?: AuthTab;
   hasGoogleAuth: boolean;
   hasEmailAuth: boolean;
-  sandboxRecipient?: string;
   locale: Locale;
   dictionary: Dictionary["authModal"];
   children: React.ReactNode;
@@ -42,7 +41,6 @@ export function AuthModal({
   defaultTab = "signin",
   hasGoogleAuth,
   hasEmailAuth,
-  sandboxRecipient,
   locale,
   dictionary,
   children,
@@ -131,7 +129,6 @@ export function AuthModal({
                   cta={dictionary.signin.cta}
                   hasGoogleAuth={hasGoogleAuth}
                   hasEmailAuth={hasEmailAuth}
-                  sandboxRecipient={sandboxRecipient}
                 />
               </TabsContent>
 
@@ -145,7 +142,6 @@ export function AuthModal({
                   cta={dictionary.signup.cta}
                   hasGoogleAuth={hasGoogleAuth}
                   hasEmailAuth={hasEmailAuth}
-                  sandboxRecipient={sandboxRecipient}
                 />
               </TabsContent>
             </Tabs>
@@ -165,7 +161,6 @@ function AuthFormShell({
   cta,
   hasGoogleAuth,
   hasEmailAuth,
-  sandboxRecipient,
 }: {
   locale: Locale;
   dictionary: Dictionary["authModal"];
@@ -175,7 +170,6 @@ function AuthFormShell({
   cta: string;
   hasGoogleAuth: boolean;
   hasEmailAuth: boolean;
-  sandboxRecipient?: string;
 }) {
   return (
     <div className="space-y-6">
@@ -192,7 +186,6 @@ function AuthFormShell({
         dictionary={dictionary}
         cta={cta}
         enabled={hasEmailAuth}
-        sandboxRecipient={sandboxRecipient}
       />
     </div>
   );

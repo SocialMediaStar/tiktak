@@ -92,7 +92,6 @@
     "emailPlaceholder": "you@example.com",
     "emailNote": "Recommended setup: keep email passwordless. Auth.js Email Provider handles verification flow with materially less surface area than building password auth from scratch.",
     "emailError": "The sign-in link could not be sent right now.",
-    "emailSandbox": "Resend is still in testing mode. For now, email sign-in only works with {email}.",
     "emailMissingConfig": "Email sign-in activates after adding `NEXTAUTH_SECRET`, `RESEND_API_KEY` and `EMAIL_FROM`.",
     "emailPending": "Sending link..."
   },
@@ -100,7 +99,8 @@
     "title": "Sign in",
     "description": "Google OAuth is ready as soon as the env values are added.",
     "googleButton": "Continue with Google",
-    "missingConfig": "Add `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`."
+    "missingConfig": "Add `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.",
+    "error": "The sign-in email could not be sent. Please try again."
   },
   "authEmail": {
     "subject": "Sign in to {host}",

@@ -5,19 +5,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { EmailSignInForm } from "@/components/auth/email-signin-form";
 import { GoogleSignInButton } from "@/components/auth/google-signin-button";
 import { authOptions } from "@/lib/auth";
-import { env, hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
+import { hasAuthEnv, hasEmailAuthEnv } from "@/lib/env";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { resolveLocale } from "@/i18n/resolve-locale";
 
 export default async function SignInPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale: localeParam } = await params;
   const locale = resolveLocale(localeParam);
   const dictionary = getDictionary(locale);
+  const query = await searchParams;
   const session = await getServerSession(authOptions);
+  const error = typeof query.error === "string" ? query.error : null;
 
   if (session) {
     redirect(`/${locale}/dashboard`);
@@ -33,6 +37,11 @@ export default async function SignInPage({
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {error ? (
+            <p className="rounded-2xl border border-amber-300/20 bg-amber-300/10 px-4 py-3 text-sm text-amber-100">
+              {dictionary.signinPage.error}
+            </p>
+          ) : null}
           <GoogleSignInButton
             enabled={hasAuthEnv}
             locale={locale}
@@ -46,7 +55,6 @@ export default async function SignInPage({
             dictionary={dictionary.authModal}
             cta={dictionary.authModal.signin.cta}
             enabled={hasEmailAuthEnv}
-            sandboxRecipient={env.AUTH_TEST_RECIPIENT || undefined}
             compact
           />
         </CardContent>

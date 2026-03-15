@@ -49,5 +49,6 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     verifyRequest: "/verify-request",
+    error: "/auth/error",
   },
 };

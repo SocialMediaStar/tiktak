@@ -156,44 +156,66 @@ export function OnboardingForm({
       title: dictionary.sectionContact,
       description: dictionary.stepContactCopy,
       fields: (
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label={dictionary.contactEmailLabel}>
-            <Input
-              name="contactEmail"
-              type="email"
-              value={formValues.contactEmail}
-              onChange={(event) => updateValue("contactEmail", event.target.value)}
-              required
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div className="space-y-5">
+            <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label={dictionary.contactEmailLabel}>
+                  <Input
+                    name="contactEmail"
+                    type="email"
+                    value={formValues.contactEmail}
+                    onChange={(event) => updateValue("contactEmail", event.target.value)}
+                    required
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+                <Field label={dictionary.supportEmailLabel}>
+                  <Input
+                    name="supportEmail"
+                    type="email"
+                    value={formValues.supportEmail}
+                    onChange={(event) => updateValue("supportEmail", event.target.value)}
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label={dictionary.websiteLabel}>
+                  <Input
+                    name="website"
+                    value={formValues.website}
+                    onChange={(event) => updateValue("website", event.target.value)}
+                    placeholder="https://..."
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+                <Field label={dictionary.tiktokLabel}>
+                  <Input
+                    name="tiktokHandle"
+                    value={formValues.tiktokHandle}
+                    onChange={(event) => updateValue("tiktokHandle", event.target.value)}
+                    placeholder="@brandname"
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <InfoPanel
+              title={dictionary.contactCardTitle}
+              copy={dictionary.contactCardCopy}
             />
-          </Field>
-          <Field label={dictionary.supportEmailLabel}>
-            <Input
-              name="supportEmail"
-              type="email"
-              value={formValues.supportEmail}
-              onChange={(event) => updateValue("supportEmail", event.target.value)}
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            <InfoPanel
+              title={dictionary.websiteCardTitle}
+              copy={dictionary.websiteCardCopy}
             />
-          </Field>
-          <Field label={dictionary.websiteLabel}>
-            <Input
-              name="website"
-              value={formValues.website}
-              onChange={(event) => updateValue("website", event.target.value)}
-              placeholder="https://..."
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-            />
-          </Field>
-          <Field label={dictionary.tiktokLabel}>
-            <Input
-              name="tiktokHandle"
-              value={formValues.tiktokHandle}
-              onChange={(event) => updateValue("tiktokHandle", event.target.value)}
-              placeholder="@brandname"
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-            />
-          </Field>
+          </div>
         </div>
       ),
     },
@@ -201,33 +223,53 @@ export function OnboardingForm({
       title: dictionary.sectionBusiness,
       description: dictionary.stepLaunchCopy,
       fields: (
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label={dictionary.companyNameLabel}>
-            <Input
-              name="companyName"
-              value={formValues.companyName}
-              onChange={(event) => updateValue("companyName", event.target.value)}
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div className="space-y-5">
+            <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label={dictionary.companyNameLabel}>
+                  <Input
+                    name="companyName"
+                    value={formValues.companyName}
+                    onChange={(event) => updateValue("companyName", event.target.value)}
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+                <Field label={dictionary.phoneLabel}>
+                  <Input
+                    name="phone"
+                    value={formValues.phone}
+                    onChange={(event) => updateValue("phone", event.target.value)}
+                    className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-slate-200 bg-white p-4 sm:p-5">
+              <Field label={dictionary.countryLabel}>
+                <Input
+                  name="country"
+                  value={formValues.country}
+                  onChange={(event) => updateValue("country", event.target.value)}
+                  placeholder={dictionary.countryPlaceholder}
+                  required
+                  className="h-12 rounded-2xl border-slate-200 bg-slate-50 px-4 text-slate-950 placeholder:text-slate-400"
+                />
+              </Field>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <InfoPanel
+              title={dictionary.companyCardTitle}
+              copy={dictionary.companyCardCopy}
             />
-          </Field>
-          <Field label={dictionary.phoneLabel}>
-            <Input
-              name="phone"
-              value={formValues.phone}
-              onChange={(event) => updateValue("phone", event.target.value)}
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            <InfoPanel
+              title={dictionary.countryCardTitle}
+              copy={dictionary.countryCardCopy}
             />
-          </Field>
-          <Field label={dictionary.countryLabel}>
-            <Input
-              name="country"
-              value={formValues.country}
-              onChange={(event) => updateValue("country", event.target.value)}
-              placeholder={dictionary.countryPlaceholder}
-              required
-              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
-            />
-          </Field>
+          </div>
         </div>
       ),
     },
@@ -390,5 +432,20 @@ function LanguageOption({
     >
       <div className="text-sm font-medium">{label}</div>
     </button>
+  );
+}
+
+function InfoPanel({
+  title,
+  copy,
+}: {
+  title: string;
+  copy: string;
+}) {
+  return (
+    <div className="rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-4">
+      <h3 className="text-sm font-semibold tracking-[-0.02em] text-slate-950">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
+    </div>
   );
 }

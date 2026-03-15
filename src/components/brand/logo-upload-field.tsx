@@ -14,6 +14,7 @@ export function LogoUploadField({
   removeLabel,
   emptyLabel,
   initialValue,
+  tone = "dark",
 }: {
   label: string;
   hint: string;
@@ -22,6 +23,7 @@ export function LogoUploadField({
   removeLabel: string;
   emptyLabel: string;
   initialValue?: string | null;
+  tone?: "dark" | "light";
 }) {
   const inputId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -57,17 +59,39 @@ export function LogoUploadField({
     reader.readAsDataURL(file);
   }
 
+  const isLight = tone === "light";
+
   return (
     <div className="space-y-3">
       <div className="space-y-2">
-        <span className="text-sm text-white/70">{label}</span>
-        <div className="flex items-center gap-4 rounded-[28px] border border-white/10 bg-white/[0.045] p-4">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-white/10 bg-[#162030]">
+        <span className={isLight ? "text-sm font-medium text-slate-600" : "text-sm text-white/70"}>
+          {label}
+        </span>
+        <div
+          className={
+            isLight
+              ? "flex items-center gap-4 rounded-[28px] border border-slate-200 bg-slate-50 p-4"
+              : "flex items-center gap-4 rounded-[28px] border border-white/10 bg-white/[0.045] p-4"
+          }
+        >
+          <div
+            className={
+              isLight
+                ? "flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-slate-200 bg-white"
+                : "flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-white/10 bg-[#162030]"
+            }
+          >
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={preview} alt="" className="h-full w-full object-cover" />
             ) : (
-              <span className="px-3 text-center text-[11px] uppercase tracking-[0.22em] text-white/35">
+              <span
+                className={
+                  isLight
+                    ? "px-3 text-center text-[11px] uppercase tracking-[0.22em] text-slate-400"
+                    : "px-3 text-center text-[11px] uppercase tracking-[0.22em] text-white/35"
+                }
+              >
                 {emptyLabel}
               </span>
             )}
@@ -87,7 +111,11 @@ export function LogoUploadField({
               <Button
                 type="button"
                 variant="outline"
-                className="h-10 rounded-full border-white/12 bg-white/5 px-4 text-white hover:bg-white/10"
+                className={
+                  isLight
+                    ? "h-10 rounded-full border-slate-200 bg-white px-4 text-slate-900 hover:bg-slate-100"
+                    : "h-10 rounded-full border-white/12 bg-white/5 px-4 text-white hover:bg-white/10"
+                }
                 onClick={() => fileInputRef.current?.click()}
               >
                 {preview ? replaceLabel : buttonLabel}
@@ -96,7 +124,11 @@ export function LogoUploadField({
                 <Button
                   type="button"
                   variant="ghost"
-                  className="h-10 rounded-full px-4 text-white/70 hover:bg-white/8 hover:text-white"
+                  className={
+                    isLight
+                      ? "h-10 rounded-full px-4 text-slate-500 hover:bg-slate-200 hover:text-slate-900"
+                      : "h-10 rounded-full px-4 text-white/70 hover:bg-white/8 hover:text-white"
+                  }
                   onClick={() => {
                     setPreview("");
                     setError("");
@@ -109,7 +141,9 @@ export function LogoUploadField({
                 </Button>
               ) : null}
             </div>
-            <p className="text-xs leading-6 text-white/45">{error || hint}</p>
+            <p className={isLight ? "text-xs leading-6 text-slate-500" : "text-xs leading-6 text-white/45"}>
+              {error || hint}
+            </p>
           </div>
         </div>
       </div>

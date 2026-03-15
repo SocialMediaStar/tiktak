@@ -41,16 +41,23 @@ export function OnboardingForm({
     <form action={formAction} className="space-y-8">
       <input type="hidden" name="locale" value={locale} />
 
-      <section className="space-y-4">
-        <div>
-          <h2 className="text-lg font-semibold text-white">{dictionary.sectionBrand}</h2>
-        </div>
+      <Section title={dictionary.sectionBrand}>
         <div className="grid gap-4 md:grid-cols-2">
           <Field label={dictionary.nameLabel}>
-            <Input name="name" placeholder={dictionary.namePlaceholder} required />
+            <Input
+              name="name"
+              placeholder={dictionary.namePlaceholder}
+              required
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.slugLabel}>
-            <Input name="slug" placeholder={dictionary.slugPlaceholder} required />
+            <Input
+              name="slug"
+              placeholder={dictionary.slugPlaceholder}
+              required
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
         </div>
         <Field label={dictionary.descriptionLabel}>
@@ -60,7 +67,7 @@ export function OnboardingForm({
             minLength={12}
             maxLength={300}
             placeholder={dictionary.descriptionPlaceholder}
-            className="min-h-32 w-full rounded-2xl border border-white/12 bg-white/[0.045] px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-orange-300/40"
+            className="min-h-32 w-full rounded-[24px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none placeholder:text-slate-400 focus:border-orange-300/70"
           />
         </Field>
         <div className="grid gap-4 md:grid-cols-2">
@@ -71,67 +78,111 @@ export function OnboardingForm({
             replaceLabel={dictionary.logoReplaceButton}
             removeLabel={dictionary.logoRemoveButton}
             emptyLabel={dictionary.logoEmpty}
+            tone="light"
           />
           <Field label={dictionary.brandLocaleLabel}>
             <select
               name="brandLocale"
               defaultValue={locale}
-              className="h-12 w-full rounded-2xl border border-white/12 bg-[#101827] px-4 text-sm text-white outline-none"
+              className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-950 outline-none"
             >
               <option value="et">Eesti</option>
               <option value="en">English</option>
             </select>
           </Field>
         </div>
-      </section>
+      </Section>
 
-      <section className="space-y-4">
-        <div>
-          <h2 className="text-lg font-semibold text-white">{dictionary.sectionContact}</h2>
-        </div>
+      <Section title={dictionary.sectionContact}>
         <div className="grid gap-4 md:grid-cols-2">
           <Field label={dictionary.contactEmailLabel}>
-            <Input name="contactEmail" type="email" required />
+            <Input
+              name="contactEmail"
+              type="email"
+              required
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.supportEmailLabel}>
-            <Input name="supportEmail" type="email" />
+            <Input
+              name="supportEmail"
+              type="email"
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.websiteLabel}>
-            <Input name="website" placeholder="https://..." />
+            <Input
+              name="website"
+              placeholder="https://..."
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.tiktokLabel}>
-            <Input name="tiktokHandle" placeholder="@brandname" />
+            <Input
+              name="tiktokHandle"
+              placeholder="@brandname"
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
         </div>
-      </section>
+      </Section>
 
-      <section className="space-y-4">
-        <div>
-          <h2 className="text-lg font-semibold text-white">{dictionary.sectionBusiness}</h2>
-        </div>
+      <Section title={dictionary.sectionBusiness}>
         <div className="grid gap-4 md:grid-cols-2">
           <Field label={dictionary.companyNameLabel}>
-            <Input name="companyName" />
+            <Input
+              name="companyName"
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.phoneLabel}>
-            <Input name="phone" />
+            <Input
+              name="phone"
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
           <Field label={dictionary.countryLabel}>
-            <Input name="country" placeholder={dictionary.countryPlaceholder} required />
+            <Input
+              name="country"
+              placeholder={dictionary.countryPlaceholder}
+              required
+              className="h-12 rounded-2xl border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400"
+            />
           </Field>
         </div>
-      </section>
+      </Section>
 
       {state.message ? (
-        <p className={state.success ? "text-sm text-emerald-200" : "text-sm text-amber-200"}>
+        <p className={state.success ? "text-sm text-emerald-700" : "text-sm text-amber-700"}>
           {state.message}
         </p>
       ) : null}
 
-      <Button type="submit" className="h-12 rounded-2xl px-6" disabled={isPending}>
+      <Button
+        type="submit"
+        className="h-12 rounded-full bg-slate-950 px-6 text-white hover:bg-slate-800"
+        disabled={isPending}
+      >
         {isPending ? dictionary.pending : dictionary.submit}
       </Button>
     </form>
+  );
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="space-y-5 rounded-[32px] border border-slate-200 bg-slate-50/80 p-5 sm:p-6">
+      <div>
+        <h2 className="text-lg font-semibold tracking-[-0.02em] text-slate-950">{title}</h2>
+      </div>
+      {children}
+    </section>
   );
 }
 
@@ -144,7 +195,7 @@ function Field({
 }) {
   return (
     <label className="block space-y-2">
-      <span className="text-sm text-white/70">{label}</span>
+      <span className="text-sm font-medium text-slate-600">{label}</span>
       {children}
     </label>
   );
